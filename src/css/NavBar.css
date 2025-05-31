@@ -1,0 +1,42 @@
+#navCont {
+    display: flex;
+    min-height: 3rem;
+}
+#navLeft {
+    width: 50%;
+    /* background-color: #ff00ff; */
+    display: inherit;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1%;
+    font-size: x-large;
+    font-weight: 100;
+    letter-spacing: 5px;
+}
+#navLeft h4:hover {
+    color: #ff00ff;
+    cursor: default;
+}
+#navRight {
+    display: flex;
+    flex-wrap: wrap;
+    flex: 1;
+    width: 50%;
+    align-items: center;
+}
+#navRight ul {
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items:center;
+    list-style: none;
+    padding: 0%;
+    margin: 0%;
+    font-size: larger;
+}
+#navRight ul li:hover {
+    color: #ff00ff;
+    border-bottom: 2px solid #ff00ff;
+    border-radius: 2px;
+    cursor: pointer;
+}

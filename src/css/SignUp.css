@@ -1,0 +1,39 @@
+* {
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+#si-cont {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+    height: 100%;
+}
+.field {
+    width: 25vw;
+    display: flex;
+    flex-direction: column;
+}
+label {
+    margin-bottom: 2%;
+    font-size: larger;
+    font-weight: 200;
+}
+input {
+    height: 2rem;
+    width: 90%;
+    border: 2px solid white;
+    border-radius: 5px;
+}
+button {
+    background-color: black;
+    color: white;
+    margin-top: 2%;
+}
+button:hover {
+    background-color: white;
+    color: black;
+}

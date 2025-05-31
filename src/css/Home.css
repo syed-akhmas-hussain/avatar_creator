@@ -1,0 +1,45 @@
+#first {
+  display: flex;
+  margin-top: 3.5rem;;
+}
+#name {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 90%;
+  align-items: flex-end;
+  justify-content: center;
+  margin: 0%;
+}
+#vert-logo-name {
+  width: 10%;
+  font-size: 5rem;
+  font-weight: 500;
+  writing-mode: vertical-rl;
+  margin: 0%;
+  color: #ff00ff;
+  letter-spacing: 20px;
+}
+.centre-div {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-self: center;
+}
+
+.centre-div p {
+  margin: 0;
+  text-align: center;
+  font-weight: 500;
+  font-size: 5rem;
+  border-bottom: 1px solid #ff00ff;
+  /* align-self: center; */
+}
+#flex-end {
+    margin: 0%;
+    font-weight: 200;
+    padding-right: 5%;
+    font-size: x-large;
+    text-align: right;
+}
