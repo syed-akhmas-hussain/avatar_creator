@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./../css/NavBar.css";
 import React from "react";
 
@@ -19,7 +20,11 @@ const NavBar: React.FC<NavBarProps> = ({ homeRef, aboutRef, contactRef }) => {
       <div id="navRight">
         <ul>
           <li onClick={() => scrollToSection(homeRef)}>Home</li>
-          <li>TRY-ON</li>
+          <li>
+            <Link to="/tryon" style={{ color: "white" }}>
+              TRY-ON
+            </Link>
+          </li>
           <li onClick={() => scrollToSection(aboutRef)}>About Us</li>
           <li onClick={() => scrollToSection(contactRef)}>Contact</li>
         </ul>

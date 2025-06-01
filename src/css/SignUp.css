@@ -28,12 +28,12 @@ input {
     border: 2px solid white;
     border-radius: 5px;
 }
-button {
+#si-cont button {
     background-color: black;
     color: white;
     margin-top: 2%;
 }
-button:hover {
+#si-cont button:hover {
     background-color: white;
     color: black;
 }
