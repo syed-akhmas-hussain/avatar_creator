@@ -1,5 +1,5 @@
-import "./../css/thirdPage.css";
-import introImg from './../assets/introImg.jpg';
+import "./../css/Intro.css";
+import introImg from "./../assets/introImg.jpg";
 
 const Intro: React.FC = () => {
   return (
@@ -30,7 +30,7 @@ const Intro: React.FC = () => {
           expedita, fugit vitae saepe quisquam! Nostrum provident nesciunt
           quidem voluptate fugiat facilis sapiente!
         </p>
-        <div id="btn">
+        <div id="btn3">
           <button>Learn more</button>
         </div>
       </div>

@@ -1,0 +1,20 @@
+#footCont {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  border-top: 1px solid #ff00ff;
+}
+.eachmem {
+  flex-direction: column;
+}
+.name {
+  font-size: x-large;
+  font-weight: 200;
+}
+.gmail,
+.phone {
+  font-size: large;
+  font-weight: 200;
+}

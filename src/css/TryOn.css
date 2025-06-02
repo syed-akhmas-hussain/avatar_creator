@@ -35,6 +35,7 @@ h1 {
   gap: 5%;
 }
 #btn {
+  display: flex;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -44,8 +45,8 @@ h1 {
 #btn2 {
   margin: 0;
   padding: 0;
-  width: 15%;
-  height: 2rem;
+  padding: 1%;
+  height: 3rem;
   background-color: black;
   color: white;
   margin-bottom: 5%;
@@ -134,4 +135,21 @@ h1 {
   border: 3px solid whitesmoke;
   border-radius: 20px;
   margin-top: 2%;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* align-items: center; */
+  width: 100%;
+}
+.subHeadings {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.subHeadings p {
+  margin: 0%;
 }
