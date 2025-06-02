@@ -57,7 +57,7 @@ const AboutUs = forwardRef<HTMLElement, AboutUsProps>((_props, ref) => {
             <p>Danish Raza</p>
           </div>
           <div className="mem-id">
-            <p>581488</p>
+            <p>58418</p>
           </div>
         </div>
 
@@ -73,7 +73,7 @@ const AboutUs = forwardRef<HTMLElement, AboutUsProps>((_props, ref) => {
             <p>Jhanzaib Javed</p>
           </div>
           <div className="mem-id">
-            <p>58418</p>
+            <p>58476</p>
           </div>
         </div>
       </div>
