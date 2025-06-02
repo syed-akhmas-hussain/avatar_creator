@@ -5,20 +5,23 @@ import SignIn from "./auth/SignIn";
 import SignUp from "./auth/SignUp";
 import { SessionProvider } from "./providers/useSession";
 import TryOn from "./screens/TryOn";
+import { DataProvider } from "./providers/useData";
 
 const App: React.FC = () => {
   return (
     <SessionProvider>
-      <div id="app">
-        <Router>
-          <Routes>
-            <Route path="/" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/home" element={<MainApp />} />
-            <Route path="/tryon" element={<TryOn />} />
-          </Routes>
-        </Router>
-      </div>
+      <DataProvider>
+        <div id="app">
+          <Router>
+            <Routes>
+              <Route path="/" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/home" element={<MainApp />} />
+              <Route path="/tryon" element={<TryOn />} />
+            </Routes>
+          </Router>
+        </div>
+      </DataProvider>
     </SessionProvider>
   );
 };
