@@ -7,8 +7,7 @@
   flex-wrap: wrap;
   flex-direction: column;
   width: 90%;
-  align-items: flex-end;
-  justify-content: center;
+  justify-content: flex-start;
   margin: 0%;
 }
 #vert-logo-name {
@@ -24,8 +23,9 @@
   width: 90%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-end;
+  justify-content: center;
   align-self: center;
+  align-items: center;
 }
 
 .centre-div p {
@@ -34,12 +34,4 @@
   font-weight: 500;
   font-size: 5rem;
   border-bottom: 1px solid #ff00ff;
-  /* align-self: center; */
-}
-#flex-end {
-  margin: 0%;
-  font-weight: 200;
-  padding-right: 5%;
-  font-size: x-large;
-  text-align: right;
 }

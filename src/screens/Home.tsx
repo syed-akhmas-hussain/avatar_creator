@@ -8,13 +8,7 @@ const Home = forwardRef<HTMLElement, homeProps>((_props, ref) => {
       <section id="first">
         <div id="name">
           <div className="centre-div">
-            <p>GENERATING</p>
-          </div>
-          <div className="centre-div">
-            <p>CHARACTER\AVATAR</p>
-          </div>
-          <div id="flex-end">
-            <h4>Supervisor: M. Faizan Khan</h4>
+            <p>SNAZZY AVATAR</p>
           </div>
         </div>
         <p id="vert-logo-name">SNAZZY</p>

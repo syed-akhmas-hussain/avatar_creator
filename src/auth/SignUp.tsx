@@ -1,12 +1,36 @@
 import { useState } from "react";
 import "./../css/SignIn.css";
 import AuthNav from "./AuthNav";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+
+export type SignUpCredentialsType = {
+  email: string;
+  pass1: string;
+  pass2: string;
+};
 
 const SignUp: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [pass1, setPass] = useState<string>("");
-  const [pass2, setPass2] = useState<string>("");
+  const navigation = useNavigate();
+  const [userCred, setUserCred] = useState<SignUpCredentialsType>({
+    email: "",
+    pass1: "",
+    pass2: "",
+  });
+
+  const handleCreateAccountClick = () => {
+    if (!userCred.email && userCred.pass1 && userCred.pass2) {
+      alert("Email is required");
+    } else if (userCred.email && (!userCred.pass1 || !userCred.pass2)) {
+      alert("Password fields are required");
+    } else if (!userCred.email && !userCred.pass1 && !userCred.pass2) {
+      alert("All fields are required");
+    } else if (userCred.pass1 !== userCred.pass2) {
+      alert("Passwords does not match!!");
+    } else {
+      alert("Account created successfuly");
+      navigation("/");
+    }
+  };
   return (
     <>
       <AuthNav />
@@ -14,18 +38,28 @@ const SignUp: React.FC = () => {
         <div className="field">
           <label htmlFor="email">Email</label>
           <input
-            type="string"
-            value={email}
-            onChange={(txt) => setEmail(txt.target.value)}
+            type="email"
+            value={userCred.email}
+            onChange={(txt) =>
+              setUserCred((prev) => ({
+                ...prev,
+                email: txt.target.value,
+              }))
+            }
             placeholder="example@gmail.com"
           />
         </div>
         <div className="field">
           <label htmlFor="password">Password</label>
           <input
-            type="string"
-            value={pass1}
-            onChange={(txt) => setPass(txt.target.value)}
+            type="password"
+            value={userCred.pass1}
+            onChange={(txt) =>
+              setUserCred((prev) => ({
+                ...prev,
+                pass1: txt.target.value,
+              }))
+            }
             placeholder="Your Password"
           />
         </div>
@@ -33,24 +67,21 @@ const SignUp: React.FC = () => {
         <div className="field">
           <label htmlFor="password">Re Enter Password</label>
           <input
-            type="string"
-            value={pass2}
-            onChange={(txt) => setPass2(txt.target.value)}
+            type="password"
+            value={userCred.pass2}
+            onChange={(txt) =>
+              setUserCred((prev) => ({
+                ...prev,
+                pass2: txt.target.value,
+              }))
+            }
             placeholder="Your Password"
           />
         </div>
+        <button onClick={handleCreateAccountClick}>Create Account</button>
         <Link to="/">
           <button>Go Back</button>
         </Link>
-        {email === "" || pass1 === "" || pass2 === "" ? (
-          <p>Fields are empty</p>
-        ) : email !== "" && pass1 !== "" && pass2 !== "" && pass1 !== pass2 ? (
-          <p>Passwords does not match</p>
-        ) : (
-          <Link to="/">
-            <button>Create Account</button>
-          </Link>
-        )}
       </section>
     </>
   );

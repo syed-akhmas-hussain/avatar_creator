@@ -33,7 +33,7 @@ const TryOn: React.FC = () => {
       formData.append(`files`, file);
     });
     try {
-      const resp = await fetch("http://localhost:4000/useruploads", {
+      const resp = await fetch("http://localhost:5000/useruploads", {
         method: "POST",
         body: formData,
       });
@@ -239,7 +239,7 @@ const TryOn: React.FC = () => {
             </div>
           </div>
         </div>
-        {dataForModel.selectedCategory && dataForModel.selectedColor && (
+        {dataForModel.selectedCategory && (
           <div className="colorAndClothes">
             {data?.[dataForModel.selectedCategory].map((i: imagesType, idx) => (
               <div

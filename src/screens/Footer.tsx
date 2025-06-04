@@ -5,29 +5,8 @@ type FooterProps = {};
 const Footer = forwardRef<HTMLElement, FooterProps>((_props, ref) => {
   return (
     <section id="footCont" ref={ref}>
-      <div id="eachmem">
-        <p className="name">Usama Mir</p>
-        <p className="gmail">example@gmail.com</p>
-        <p className="phone">(+92)300-123456</p>
-      </div>
-
-      <div id="eachmem">
-        <p className="name">Danish Raza</p>
-        <p className="gmail">example@gmail.com</p>
-        <p className="phone">(+92)300-123456</p>
-      </div>
-
-      <div id="eachmem">
-        <p className="name">Abdul Qavi</p>
-        <p className="gmail">example@gmail.com</p>
-        <p className="phone">(+92)300-123456</p>
-      </div>
-
-      <div id="eachmem">
-        <p className="name">Jhanzaib Javed</p>
-        <p className="gmail">example@gmail.com</p>
-        <p className="phone">(+92)300-123456</p>
-      </div>
+      <p><span className="emphasized">Gmail: </span>example@gmail.com</p>
+      <p><span className="emphasized">Support: </span>+92 300 1234567</p>
     </section>
   );
 });

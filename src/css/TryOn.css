@@ -167,6 +167,7 @@ h1 {
   width: 25%;
   height: 15rem;
   background-color: #111111;
+  border: 3px solid whitesmoke;
   border-radius: 10px;
 }
 .suitImgs:hover {

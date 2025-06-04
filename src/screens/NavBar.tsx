@@ -4,11 +4,10 @@ import React from "react";
 
 type NavBarProps = {
   homeRef: React.RefObject<HTMLElement | null>;
-  aboutRef: React.RefObject<HTMLElement | null>;
   contactRef: React.RefObject<HTMLElement | null>;
 };
 
-const NavBar: React.FC<NavBarProps> = ({ homeRef, aboutRef, contactRef }) => {
+const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -25,7 +24,6 @@ const NavBar: React.FC<NavBarProps> = ({ homeRef, aboutRef, contactRef }) => {
               TRY-ON
             </Link>
           </li>
-          <li onClick={() => scrollToSection(aboutRef)}>About Us</li>
           <li onClick={() => scrollToSection(contactRef)}>Contact</li>
         </ul>
       </div>

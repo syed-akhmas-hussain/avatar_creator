@@ -12,23 +12,18 @@ const Intro: React.FC = () => {
           <p>INTRODUCTION</p>
         </div>
         <p id="intro-content">
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sapiente
-          similique magnam ut excepturi tempore quia impedit. Iure dolore
-          assumenda tenetur quo, laborum in tempora non asperiores reprehenderit
-          commodi recusandae quia. Consectetur, dolor, laboriosam itaque ipsam
-          rem corrupti earum aut consequuntur quas animi id sequi totam,
-          delectus mollitia! Ut, consequatur accusantium earum quia labore et
-          cumque suscipit aut deserunt eos enim. Non nisi, temporibus in rem
-          placeat modi voluptates facilis praesentium distinctio corporis quae
-          labore, consectetur iure! Consequuntur, praesentium culpa, ut est,
-          explicabo iure rerum harum repudiandae obcaecati sed vero nam? Numquam
-          reiciendis quaerat dicta repellat. Fugit culpa tempore qui, tenetur
-          quia ducimus possimus voluptatibus veniam doloribus odit libero
-          maxime, itaque eum mollitia. Libero harum inventore, debitis eveniet
-          ea quas odio! Fuga doloremque omnis esse beatae reprehenderit quos
-          error facere magnam, quo excepturi rerum nostrum voluptates natus ex
-          expedita, fugit vitae saepe quisquam! Nostrum provident nesciunt
-          quidem voluptate fugiat facilis sapiente!
+          We at Snazzy Avatar are revolutionising how people construct digital
+          personas. With the help of our AI-powered avatar generator, users can
+          easily create distinctive, customised avatars without the need for
+          sophisticated tools or design knowledge. Our platform, which was
+          developed for gamers, content producers, and online communities,
+          provides a wide range of personalisation choices, such as facial
+          characteristics, hairstyles, attire, and accessories. Through clever,
+          intuitive tools, Snazzy Avatar empowers users to realise their ideas,
+          emphasising creativity, simplicity, and AI integration. Whether you're
+          creating a digital mascot, social media persona, or in-game persona,
+          Snazzy Avatar allows you to design characters that accurately
+          reflect who you are.
         </p>
         <div id="btn3">
           <button>Learn more</button>
