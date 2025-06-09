@@ -37,3 +37,9 @@ input {
   background-color: white;
   color: black;
 }
+.btn-adj{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

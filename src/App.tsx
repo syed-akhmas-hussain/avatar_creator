@@ -6,6 +6,7 @@ import SignUp from "./auth/SignUp";
 import { SessionProvider } from "./providers/useSession";
 import TryOn from "./screens/TryOn";
 import { DataProvider } from "./providers/useData";
+import PrivateRoute from "./screens/PrivatRoute";
 
 const App: React.FC = () => {
   return (
@@ -16,8 +17,22 @@ const App: React.FC = () => {
             <Routes>
               <Route path="/" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
-              <Route path="/home" element={<MainApp />} />
-              <Route path="/tryon" element={<TryOn />} />
+              <Route
+                path="/home"
+                element={
+                  <PrivateRoute>
+                    <MainApp />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/tryon"
+                element={
+                  <PrivateRoute>
+                    <TryOn />
+                  </PrivateRoute>
+                }
+              />
             </Routes>
           </Router>
         </div>

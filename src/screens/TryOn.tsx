@@ -101,9 +101,7 @@ const TryOn: React.FC = () => {
                 </label>
               </div>
             )}
-          </div>
 
-          <div className="row">
             {files[2] ? (
               <div className="upload-wrapper">
                 <img

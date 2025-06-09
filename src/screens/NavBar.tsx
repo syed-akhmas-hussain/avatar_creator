@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import "./../css/NavBar.css";
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { useSession } from "../providers/useSession";
 
 type NavBarProps = {
   homeRef: React.RefObject<HTMLElement | null>;
@@ -8,6 +11,7 @@ type NavBarProps = {
 };
 
 const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
+  const { setSession } = useSession();
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   };
@@ -25,6 +29,11 @@ const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
             </Link>
           </li>
           <li onClick={() => scrollToSection(contactRef)}>Contact</li>
+          <li onClick={() => setSession(false)}>
+            <Link to="/" style={{ color: "white" }}>
+              <FontAwesomeIcon icon={faSignOutAlt} />
+            </Link>
+          </li>
         </ul>
       </div>
     </div>

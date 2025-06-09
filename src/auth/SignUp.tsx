@@ -1,87 +1,126 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./../css/SignIn.css";
 import AuthNav from "./AuthNav";
 import { Link, useNavigate } from "react-router-dom";
+import { useSession } from "../providers/useSession";
 
 export type SignUpCredentialsType = {
+  name: string;
   email: string;
-  pass1: string;
+  password: string;
   pass2: string;
 };
 
 const SignUp: React.FC = () => {
-  const navigation = useNavigate();
+  const navigate = useNavigate();
+  const { session } = useSession();
+  useEffect(() => {
+    if (session) {
+      navigate("/home", { replace: true });
+    }
+  }, []);
   const [userCred, setUserCred] = useState<SignUpCredentialsType>({
+    name: "",
     email: "",
-    pass1: "",
+    password: "",
     pass2: "",
   });
 
-  const handleCreateAccountClick = () => {
-    if (!userCred.email && userCred.pass1 && userCred.pass2) {
-      alert("Email is required");
-    } else if (userCred.email && (!userCred.pass1 || !userCred.pass2)) {
-      alert("Password fields are required");
-    } else if (!userCred.email && !userCred.pass1 && !userCred.pass2) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserCred((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+  const handleCreateAccountClick = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (
+      !userCred.email ||
+      !userCred.password ||
+      !userCred.pass2 ||
+      !userCred.name
+    ) {
       alert("All fields are required");
-    } else if (userCred.pass1 !== userCred.pass2) {
+      return;
+    }
+    if (userCred.password !== userCred.pass2) {
       alert("Passwords does not match!!");
-    } else {
-      alert("Account created successfuly");
-      navigation("/");
+      return;
+    }
+    try {
+      const resp = await fetch("http://localhost:5000/register", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userCred.name,
+          email: userCred.email,
+          password: userCred.password,
+        }),
+      });
+      const data: { message: string } = await resp.json();
+      if (resp.status === 201) {
+        alert("Account created successfully");
+        navigate("/");
+      } else {
+        alert(data.message || "Registration unsuccessfull, try again");
+      }
+    } catch (err) {
+      alert(`Server error ${err}`);
     }
   };
   return (
     <>
       <AuthNav />
       <section id="si-cont">
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            type="email"
-            value={userCred.email}
-            onChange={(txt) =>
-              setUserCred((prev) => ({
-                ...prev,
-                email: txt.target.value,
-              }))
-            }
-            placeholder="example@gmail.com"
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            value={userCred.pass1}
-            onChange={(txt) =>
-              setUserCred((prev) => ({
-                ...prev,
-                pass1: txt.target.value,
-              }))
-            }
-            placeholder="Your Password"
-          />
-        </div>
+        <form onSubmit={handleCreateAccountClick}>
+          <div className="field">
+            <label>Name</label>
+            <input
+              name="name"
+              type="text"
+              value={userCred.name}
+              onChange={handleChange}
+              placeholder="Jhon Mark"
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="email">Email</label>
+            <input
+              name="email"
+              type="email"
+              value={userCred.email}
+              onChange={handleChange}
+              placeholder="example@gmail.com"
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="password">Password</label>
+            <input
+              name="password"
+              type="password"
+              value={userCred.password}
+              onChange={handleChange}
+              placeholder="Your Password"
+            />
+          </div>
 
-        <div className="field">
-          <label htmlFor="password">Re Enter Password</label>
-          <input
-            type="password"
-            value={userCred.pass2}
-            onChange={(txt) =>
-              setUserCred((prev) => ({
-                ...prev,
-                pass2: txt.target.value,
-              }))
-            }
-            placeholder="Your Password"
-          />
-        </div>
-        <button onClick={handleCreateAccountClick}>Create Account</button>
-        <Link to="/">
-          <button>Go Back</button>
-        </Link>
+          <div className="field">
+            <label htmlFor="password">Re Enter Password</label>
+            <input
+              name="pass2"
+              type="password"
+              value={userCred.pass2}
+              onChange={handleChange}
+              placeholder="Your Password"
+            />
+          </div>
+          <button type="submit">Create Account</button>
+          <Link to="/">
+            <button>Go Back</button>
+          </Link>
+        </form>
       </section>
     </>
   );

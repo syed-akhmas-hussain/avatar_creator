@@ -32,3 +32,10 @@ input {
   background-color: white;
   color: black;
 }
+.btn-adj{
+  width: 25vw;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
