@@ -46,7 +46,6 @@ const SignIn: React.FC = () => {
       const data: { message: string } = await resp.json();
       if (resp.ok) {
         setSession(true);
-        alert(data.message || "Login successfull");
         navigate("/home", { replace: true });
       } else {
         alert(data.message || "Invalid credentials");
