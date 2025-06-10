@@ -12,6 +12,10 @@ const NotFound: React.FC = () => {
       setTimeout(() => {
         navigate("/home", { replace: true });
       }, 3000);
+    } else {
+      setTimeout(() => {
+        navigate("/", { replace: true });
+      }, 3000);
     }
   }, [navigate]);
   return (
