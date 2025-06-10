@@ -43,17 +43,23 @@ h1 {
   padding: 0;
 }
 #btn2 {
-  margin: 0;
-  padding: 0;
+   border: none;
+  margin: 0 auto; 
   padding: 1%;
   height: 3rem;
   background-color: black;
   color: white;
   margin-bottom: 5%;
+  width: 100%;   
+  max-width: 250px;   
+  font-size: 1rem;
+  text-align: center;
+  border-radius: 5px;
 }
 #btn2:hover {
   background-color: white;
   color: black;
+  border-radius: 10px;
 }
 #colorAndClothesCont {
   display: flex;
@@ -84,10 +90,12 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   align-items: center;
+  border: none;
 }
 .eachColor:hover {
   color: black;
   background-color: whitesmoke;
+  border-radius: 5px;
 }
 #red,
 #blue,
@@ -146,7 +154,6 @@ h1 {
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
-  /* align-items: center; */
   width: 100%;
 }
 .subHeadings {
@@ -179,4 +186,12 @@ h1 {
   height: 90%;
   object-fit: cover;
   border-radius: 5px;
+}
+@media (max-width: 600px) {
+  #btn2 {
+    height: 2.5rem;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    max-width: 90%;
+  }
 }

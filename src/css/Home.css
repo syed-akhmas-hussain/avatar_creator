@@ -1,37 +1,73 @@
 #first {
   display: flex;
   margin-top: 3.5rem;
+  flex-wrap: wrap; /* allow wrapping on small screens */
 }
+
 #name {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
-  width: 90%;
-  justify-content: flex-start;
-  margin: 0%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
 }
+
 #vert-logo-name {
-  width: 10%;
-  font-size: 5rem;
+  font-size: 4rem;
   font-weight: 500;
   writing-mode: vertical-rl;
-  margin: 0%;
   color: #ff00ff;
-  letter-spacing: 20px;
+  letter-spacing: 10px;
+  margin: 0;
+  width: auto;
+  padding: 0 1rem;
 }
+
+/* Center container for main heading */
 .centre-div {
-  width: 90%;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-self: center;
   align-items: center;
+  text-align: center;
 }
 
 .centre-div p {
   margin: 0;
-  text-align: center;
   font-weight: 500;
-  font-size: 5rem;
+  font-size: 4rem;
   border-bottom: 1px solid #ff00ff;
+  word-break: break-word;
+}
+
+/* ----------- RESPONSIVE STYLES ----------- */
+
+@media (max-width: 768px) {
+  #first {
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center;
+  }
+
+  #vert-logo-name {
+    writing-mode: horizontal-tb;
+    font-size: 2rem;
+    letter-spacing: 5px;
+    margin-bottom: 1rem;
+  }
+
+  .centre-div p {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .centre-div p {
+    font-size: 2rem;
+  }
+
+  #vert-logo-name {
+    font-size: 1.5rem;
+  }
 }

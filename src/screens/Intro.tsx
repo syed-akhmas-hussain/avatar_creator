@@ -22,12 +22,9 @@ const Intro: React.FC = () => {
           intuitive tools, Snazzy Avatar empowers users to realise their ideas,
           emphasising creativity, simplicity, and AI integration. Whether you're
           creating a digital mascot, social media persona, or in-game persona,
-          Snazzy Avatar allows you to design characters that accurately
-          reflect who you are.
+          Snazzy Avatar allows you to design characters that accurately reflect
+          who you are.
         </p>
-        <div id="btn3">
-          <button>Learn more</button>
-        </div>
       </div>
     </div>
   );

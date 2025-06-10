@@ -4,11 +4,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 2%;
-  height: 90vh;
+  padding: 2rem 1rem;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
 }
 .field {
-  width: 25vw;
+  width: 100%;
+  margin-bottom: 1rem;
+  max-width: 25vw;
   display: flex;
   flex-direction: column;
 }
@@ -17,25 +21,33 @@ label {
   font-size: larger;
   font-weight: 200;
 }
-input {
-  height: 2rem;
-  width: 90%;
+.field input {
+  width: 100%;
+  height: 1.5rem;
   border: 2px solid black;
   border-radius: 5px;
+  padding: 0.5rem;
+  font-size: 1rem;
 }
-#si-cont button {
-  background-color: black;
-  color: white;
-  margin-top: 2%;
-}
-#si-cont button:hover {
-  background-color: white;
-  color: black;
-}
-.btn-adj{
-  width: 25vw;
+.buttonWrapper {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1rem;
+}
+.link-button {
+  text-align: center;
+  padding: 0.25rem 0.5rem;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+.link-button:hover {
+  background-color: white;
+  color: black;
 }

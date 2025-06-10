@@ -60,8 +60,8 @@ const SignUp: React.FC = () => {
         }),
       });
       const data: { message: string } = await resp.json();
-      if (resp.status === 201) {
-        alert("Account created successfully");
+      if (resp.ok) {
+        alert(data.message || "Account created successfully");
         navigate("/");
       } else {
         alert(data.message || "Registration unsuccessfull, try again");
@@ -116,10 +116,14 @@ const SignUp: React.FC = () => {
               placeholder="Your Password"
             />
           </div>
-          <button type="submit">Create Account</button>
-          <Link to="/">
-            <button>Go Back</button>
-          </Link>
+          <div className="buttonWrapper">
+            <button type="submit" className="link-button">
+              Create Account
+            </button>
+            <Link to="/" className="link-button">
+              Go Back
+            </Link>
+          </div>
         </form>
       </section>
     </>

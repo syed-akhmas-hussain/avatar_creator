@@ -32,6 +32,10 @@ const TryOn: React.FC = () => {
     filesToUpload.forEach((file: File) => {
       formData.append(`files`, file);
     });
+    formData.append("metadata", JSON.stringify({
+      bgColor: dataForModel.selectedColor,
+      wear: dataForModel.selectedImg,
+    }));
     try {
       const resp = await fetch("http://localhost:5000/useruploads", {
         method: "POST",

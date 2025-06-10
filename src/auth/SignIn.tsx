@@ -43,8 +43,8 @@ const SignIn: React.FC = () => {
           method: "GET",
         }
       );
-      const data: { success: boolean; message: string } = await resp.json();
-      if (resp.ok && data.success === true) {
+      const data: { message: string } = await resp.json();
+      if (resp.ok) {
         setSession(true);
         alert(data.message || "Login successfull");
         navigate("/home", { replace: true });
@@ -80,10 +80,12 @@ const SignIn: React.FC = () => {
               placeholder="Your Password"
             />
           </div>
-          <div className="btn-adj">
-            <button type="submit">Sign In</button>
-            <Link to="/signup">
-              <button>Sign up</button>
+          <div className="buttonWrapper">
+            <button type="submit" className="link-button">
+              Sign In
+            </button>
+            <Link to="/signup" className="link-button">
+              Sign up
             </Link>
           </div>
         </form>
