@@ -7,6 +7,7 @@ import { SessionProvider } from "./providers/useSession";
 import TryOn from "./screens/TryOn";
 import { DataProvider } from "./providers/useData";
 import PrivateRoute from "./screens/PrivatRoute";
+import NotFound from "./screens/NotFound";
 
 const App: React.FC = () => {
   return (
@@ -33,6 +34,7 @@ const App: React.FC = () => {
                   </PrivateRoute>
                 }
               />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </Router>
         </div>

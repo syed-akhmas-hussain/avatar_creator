@@ -24,7 +24,10 @@ const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
         <ul>
           <li onClick={() => scrollToSection(homeRef)}>Home</li>
           <li>
-            <Link to="/tryon" style={{ textDecoration: "none", color: "white" }}>
+            <Link
+              to="/tryon"
+              style={{ textDecoration: "none", color: "white" }}
+            >
               TRY-ON
             </Link>
           </li>

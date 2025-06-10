@@ -15,7 +15,6 @@ const SignIn: React.FC = () => {
   });
   const navigate = useNavigate();
   const { session, setSession } = useSession();
-
   useEffect(() => {
     if (session) {
       navigate("/home", { replace: true });

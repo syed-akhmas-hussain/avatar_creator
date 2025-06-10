@@ -11,7 +11,9 @@ const Home = forwardRef<HTMLElement, homeProps>((_props, ref) => {
             <p>SNAZZY AVATAR</p>
           </div>
         </div>
-        <p id="vert-logo-name">SNAZZY</p>
+        <div id="vert-logo-name">
+          <p>SNAZZY</p>
+        </div>
       </section>
     </section>
   );

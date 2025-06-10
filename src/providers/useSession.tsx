@@ -2,7 +2,7 @@ import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 type SessionContextType = {
   session: boolean;
-  setSession: React.Dispatch<React.SetStateAction<boolean>>;
+  setSession: (val:boolean) => void;
 };
 type SessionProviderType = {
   children: ReactNode;
@@ -10,7 +10,14 @@ type SessionProviderType = {
 const SessionContext = createContext<SessionContextType | undefined>(undefined);
 
 const SessionProvider = ({ children }: SessionProviderType) => {
-  const [session, setSession] = useState<boolean>(false);
+  const [session, setSessionState] = useState<boolean>(() => {
+    const stored = localStorage.getItem("session");
+    return stored === "true";
+  });
+  const setSession = (value: boolean) => {
+    localStorage.setItem("session", value.toString());
+    setSessionState(value);
+  };
   return (
     <SessionContext.Provider value={{ session, setSession }}>
       {children}
