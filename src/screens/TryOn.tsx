@@ -1,9 +1,10 @@
 import "./../css/TryOn.css";
 import React, { useCallback, useEffect, useState } from "react";
 import { useData, type imagesType } from "../providers/useData";
-import FileInput from "./FileINput";
+import FileInput from "./FileInput";
 import LoadingSpinner from "./LoadingSpinner";
 export type dataForModelType = {
+  selectedFilesUrl: String[];
   selectedColor: "red" | "blue" | "green" | "";
   selectedCategory: "shirts" | "suit" | "tshirts" | "";
   selectedImg: string | null;
@@ -12,6 +13,7 @@ export type dataForModelType = {
 const TryOn: React.FC = () => {
   const { data } = useData();
   const [dataForModel, setDataForModel] = useState<dataForModelType>({
+    selectedFilesUrl: [],
     selectedColor: "",
     selectedCategory: "",
     selectedImg: null,
@@ -20,21 +22,31 @@ const TryOn: React.FC = () => {
   const [load, setLoad] = useState<boolean>(true);
   const [files, setFiles] = useState<(File | null)[]>([null, null, null, null]);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
+  const [fileUrl, setFilesURl] = useState<string[]>([]);
 
   const handleUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, index: string) => {
       const intIndex = parseInt(index);
-      const newFiles = [...files];
-      newFiles[intIndex] = event.target.files?.[0] || null;
-      setFiles(newFiles);
+      const file = event.target.files?.[0] || null;
+      setFiles((prev) => {
+        const newFiles = [...prev];
+        newFiles[intIndex] = file;
+        return newFiles;
+      });
     },
     []
   );
   const handleAvatarGenerator = async () => {
+    const url: string[] = [];
     const formData = new FormData();
     filesToUpload.forEach((file: File) => {
       formData.append(`files`, file);
+      url.push(`http://localhost:5000/useruploads/${file.name}`);
     });
+    setDataForModel((prev) => ({
+      ...prev,
+      selectedFilesUrl: url,
+    }));
     formData.append(
       "metadata",
       JSON.stringify({
@@ -53,8 +65,26 @@ const TryOn: React.FC = () => {
     } catch (err) {
       console.error("Error msg: ", err);
     }
-    console.log(filesToUpload);
+    try {
+      const resp = await fetch("http://localhost:5000/gernator", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...dataForModel, selectedFilesUrl: url }),
+      });
+      const res = await resp.json();
+      console.log(res);
+      if (resp.ok) {
+        console.log(`This is from genrator: ${resp}`);
+      }
+    } catch (err) {
+      console.log(`Error msg: ${err}`);
+    }
   };
+  useEffect(() => {
+    console.log(fileUrl);
+  }, [fileUrl]);
   useEffect(() => {
     const arr: File[] = files.filter((i) => i !== null);
     setFilesToUpload(arr);
@@ -196,9 +226,7 @@ const TryOn: React.FC = () => {
               </button>
             )}
         </div>
-        <div id="avatar">
-          {/* {load? <LoadingSpinner/> : <></>} */}
-        </div>
+        <div id="avatar">{/* {load? <LoadingSpinner/> : <></>} */}</div>
       </div>
     </div>
   );
