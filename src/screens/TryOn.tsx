@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useData, type imagesType } from "../providers/useData";
 import FileInput from "./FileInput";
 import LoadingSpinner from "./LoadingSpinner";
-import avtImg from "./../assets/generated_avatar.png";
+// import avtImg from "./../../../backend/uploads/shirts/s1.png";
 export type dataForModelType = {
   selectedFilesUrl: String[];
   selectedColor: "red" | "blue" | "green" | "";
@@ -30,7 +30,7 @@ const TryOn: React.FC = () => {
     message: "",
     generated_avatar: "",
   });
-  const [load, setLoad] = useState<boolean>(false); //set to true initially
+  const [load, setLoad] = useState<boolean>(true); //set to true initially
   const [files, setFiles] = useState<(File | null)[]>([null, null, null, null]);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
 
@@ -87,6 +87,7 @@ const TryOn: React.FC = () => {
       // console.log(res);
       if (resp.ok) {
         setAvatarData(res);
+        localStorage.setItem("generated_avatar", res.generated_avatar);
         setLoad(false);
         // console.log(res.message);
       }
@@ -116,6 +117,16 @@ const TryOn: React.FC = () => {
     const arr: File[] = files.filter((i) => i !== null);
     setFilesToUpload(arr);
   }, [files]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("generated_avatar");
+    if (saved) {
+      setAvatarData({
+        message: "Reloaded from local storage",
+        generated_avatar: saved,
+      });
+    }
+  }, []);
 
   // console.log(dataForModel);
   // useEffect(() => {
@@ -262,7 +273,7 @@ const TryOn: React.FC = () => {
           ) : (
             <img
               id="avtimgtag"
-              src={avtImg}
+              src={avatarData.generated_avatar}
               alt={avatarData.message}
               style={{ backgroundColor: dataForModel.selectedColor }}
             />
