@@ -114,11 +114,21 @@ h1 {
   background-color: green;
 }
 #avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
   width: 30rem;
   height: 30rem;
   border: 3px solid whitesmoke;
   border-radius: 20px;
   margin-top: 2%;
+  object-fit: contain;
+}
+#avtimgtag{
+  height: 100%;
+  width: 100%;
+  border-radius: inherit;
 }
 .flex-col {
   display: flex;

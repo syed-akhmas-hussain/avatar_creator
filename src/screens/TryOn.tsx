@@ -3,13 +3,21 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useData, type imagesType } from "../providers/useData";
 import FileInput from "./FileInput";
 import LoadingSpinner from "./LoadingSpinner";
+import avtImg from "./../assets/generated_avatar.png";
 export type dataForModelType = {
   selectedFilesUrl: String[];
   selectedColor: "red" | "blue" | "green" | "";
   selectedCategory: "shirts" | "suit" | "tshirts" | "";
   selectedImg: string | null;
 };
-
+type avatar = {
+  message: string;
+  generated_avatar: string;
+};
+// type saveAvatar = {
+//   message: string;
+//   file?: string;
+// };
 const TryOn: React.FC = () => {
   const { data } = useData();
   const [dataForModel, setDataForModel] = useState<dataForModelType>({
@@ -18,11 +26,13 @@ const TryOn: React.FC = () => {
     selectedCategory: "",
     selectedImg: null,
   });
-  // const [avatarData, setAvatarData] = useState(null);
-  const [load, setLoad] = useState<boolean>(true);
+  const [avatarData, setAvatarData] = useState<avatar>({
+    message: "",
+    generated_avatar: "",
+  });
+  const [load, setLoad] = useState<boolean>(false); //set to true initially
   const [files, setFiles] = useState<(File | null)[]>([null, null, null, null]);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
-  const [fileUrl, setFilesURl] = useState<string[]>([]);
 
   const handleUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, index: string) => {
@@ -60,8 +70,8 @@ const TryOn: React.FC = () => {
         body: formData,
       });
       if (!resp.ok) throw new Error("Upload failed");
-      const res = await resp.json();
-      console.log("Server Response: ", res);
+      // const res = await resp.json();
+      // console.log("Server Response: ", res);
     } catch (err) {
       console.error("Error msg: ", err);
     }
@@ -73,31 +83,51 @@ const TryOn: React.FC = () => {
         },
         body: JSON.stringify({ ...dataForModel, selectedFilesUrl: url }),
       });
-      const res = await resp.json();
-      console.log(res);
+      const res: avatar = await resp.json();
+      // console.log(res);
       if (resp.ok) {
-        console.log(`This is from genrator: ${resp}`);
+        setAvatarData(res);
+        setLoad(false);
+        // console.log(res.message);
       }
     } catch (err) {
       console.log(`Error msg: ${err}`);
     }
   };
-  useEffect(() => {
-    console.log(fileUrl);
-  }, [fileUrl]);
+
+  // const saveAvatar = async () => {
+  //   try {
+  //     const resp = await fetch("http://localhost:5000/save-avatar", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ avatar_url: avatarData.generated_avatar }),
+  //     });
+  //     if (resp.ok) {
+  //       const res = resp.json();
+  //     }
+  //   } catch (error) {
+  //     console.log(`Error from save-avatar route: ${error}`);
+  //   }
+  // };
+
   useEffect(() => {
     const arr: File[] = files.filter((i) => i !== null);
     setFilesToUpload(arr);
   }, [files]);
+
   // console.log(dataForModel);
   // useEffect(() => {
   //   const fetchAvatar = async () => {
   //     const resp = await fetch("url");
   //     const res = await resp.json();
   //     setAvatarData(res);
+  //     setLoad(false);
   //   };
   //   fetchAvatar();
   // }, []);
+
   return (
     <div id="newHome">
       <div id="tryONcont">
@@ -226,7 +256,18 @@ const TryOn: React.FC = () => {
               </button>
             )}
         </div>
-        <div id="avatar">{/* {load? <LoadingSpinner/> : <></>} */}</div>
+        <div id="avatar">
+          {load ? (
+            <LoadingSpinner />
+          ) : (
+            <img
+              id="avtimgtag"
+              src={avtImg}
+              alt={avatarData.message}
+              style={{ backgroundColor: dataForModel.selectedColor }}
+            />
+          )}
+        </div>
       </div>
     </div>
   );
