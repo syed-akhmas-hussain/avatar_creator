@@ -1,12 +1,13 @@
 import "./../css/TryOn.css";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useData, type imagesType } from "../providers/useData";
 import FileInput from "./FileInput";
 import LoadingSpinner from "./LoadingSpinner";
+import NavBar from "./NavBar";
 // import avtImg from "./../../../backend/uploads/shirts/s1.png";
 export type dataForModelType = {
   selectedFilesUrl: String[];
-  selectedColor: "red" | "blue" | "green" | "";
+  // selectedColor: "red" | "blue" | "green" | "";
   selectedCategory: "shirts" | "suit" | "tshirts" | "";
   selectedImg: string | null;
 };
@@ -20,9 +21,11 @@ type avatar = {
 // };
 const TryOn: React.FC = () => {
   const { data } = useData();
+  const homeref = useRef<HTMLElement | null>(null);
+  const contactRef = useRef<HTMLElement | null>(null);
   const [dataForModel, setDataForModel] = useState<dataForModelType>({
     selectedFilesUrl: [],
-    selectedColor: "",
+    // selectedColor: "",
     selectedCategory: "",
     selectedImg: null,
   });
@@ -30,7 +33,7 @@ const TryOn: React.FC = () => {
     message: "",
     generated_avatar: "",
   });
-  const [load, setLoad] = useState<boolean>(true); //set to true initially
+  const [load, setLoad] = useState<boolean>(false);
   const [files, setFiles] = useState<(File | null)[]>([null, null, null, null]);
   const [filesToUpload, setFilesToUpload] = useState<File[]>([]);
 
@@ -47,6 +50,7 @@ const TryOn: React.FC = () => {
     []
   );
   const handleAvatarGenerator = async () => {
+    setLoad(true);
     const url: string[] = [];
     const formData = new FormData();
     filesToUpload.forEach((file: File) => {
@@ -60,7 +64,7 @@ const TryOn: React.FC = () => {
     formData.append(
       "metadata",
       JSON.stringify({
-        bgColor: dataForModel.selectedColor,
+        // bgColor: dataForModel.selectedColor,
         wear: dataForModel.selectedImg,
       })
     );
@@ -140,147 +144,152 @@ const TryOn: React.FC = () => {
   // }, []);
 
   return (
-    <div id="newHome">
-      <div id="tryONcont">
-        <h1>Atleast upload one image of your face, color, and category</h1>
-        <div id="four">
-          <div className="row">
-            <FileInput files={files} id="0" handleUpload={handleUpload} />
-            <FileInput files={files} id="1" handleUpload={handleUpload} />
-            <FileInput files={files} id="2" handleUpload={handleUpload} />
-            <FileInput files={files} id="3" handleUpload={handleUpload} />
-          </div>
-        </div>
-
-        <div id="colorAndClothesCont">
-          <div className="flex-col">
-            <div className="subHeadings">
-              <p>Choose background Color</p>
-            </div>
-            <div className="colorAndClothes">
-              <button
-                className="eachColor"
-                onClick={() => {
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedColor: "red",
-                  }));
-                }}
-              >
-                <div id="red"></div>
-                <p>Red</p>
-              </button>
-
-              <button
-                className="eachColor"
-                onClick={() => {
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedColor: "blue",
-                  }));
-                }}
-              >
-                <div id="blue"></div>
-                <p>Blue</p>
-              </button>
-
-              <button
-                className="eachColor"
-                onClick={() => {
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedColor: "green",
-                  }));
-                }}
-              >
-                <div id="green"></div>
-                <p>Green</p>
-              </button>
+    <>
+      <NavBar homeRef={homeref} contactRef={contactRef} />
+      <div id="newHome">
+        <div id="tryONcont">
+          <h1>Atleast upload one image of your face, color, and category</h1>
+          <div id="four">
+            <div className="row">
+              <FileInput files={files} id="0" handleUpload={handleUpload} />
+              <FileInput files={files} id="1" handleUpload={handleUpload} />
+              <FileInput files={files} id="2" handleUpload={handleUpload} />
+              <FileInput files={files} id="3" handleUpload={handleUpload} />
             </div>
           </div>
-          <div className="flex-col">
-            <div className="subHeadings">
-              <p>Choose outfit category</p>
-            </div>
-            <div className="colorAndClothes">
-              <button
-                className="eachColor"
-                onClick={() =>
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedCategory: "suit",
-                  }))
-                }
-              >
-                Suits
-              </button>
-              <button
-                className="eachColor"
-                onClick={() =>
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedCategory: "tshirts",
-                  }))
-                }
-              >
-                T-Shirts
-              </button>
-              <button
-                className="eachColor"
-                onClick={() =>
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedCategory: "shirts",
-                  }))
-                }
-              >
-                Shirts
-              </button>
-            </div>
-          </div>
-        </div>
-        {dataForModel.selectedCategory && (
-          <div className="colorAndClothes">
-            {data?.[dataForModel.selectedCategory].map((i: imagesType, idx) => (
-              <div
-                key={idx}
-                className="suitImgs"
-                onClick={() =>
-                  setDataForModel((prev) => ({
-                    ...prev,
-                    selectedImg: i.url,
-                  }))
-                }
-              >
-                <img src={i.url} alt={i.filename} />
+
+          <div id="colorAndClothesCont">
+            {/* <div className="flex-col">
+              <div className="subHeadings">
+                <p>Choose background Color</p>
               </div>
-            ))}
+              <div className="colorAndClothes">
+                <button
+                  className="eachColor"
+                  onClick={() => {
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedColor: "red",
+                    }));
+                  }}
+                >
+                  <div id="red"></div>
+                  <p>Red</p>
+                </button>
+
+                <button
+                  className="eachColor"
+                  onClick={() => {
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedColor: "blue",
+                    }));
+                  }}
+                >
+                  <div id="blue"></div>
+                  <p>Blue</p>
+                </button>
+
+                <button
+                  className="eachColor"
+                  onClick={() => {
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedColor: "green",
+                    }));
+                  }}
+                >
+                  <div id="green"></div>
+                  <p>Green</p>
+                </button>
+              </div>
+            </div> */}
+            <div className="flex-col">
+              <div className="subHeadings">
+                <p>Choose outfit category</p>
+              </div>
+              <div className="colorAndClothes">
+                <button
+                  className="eachColor"
+                  onClick={() =>
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedCategory: "suit",
+                    }))
+                  }
+                >
+                  Suits
+                </button>
+                <button
+                  className="eachColor"
+                  onClick={() =>
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedCategory: "tshirts",
+                    }))
+                  }
+                >
+                  T-Shirts
+                </button>
+                <button
+                  className="eachColor"
+                  onClick={() =>
+                    setDataForModel((prev) => ({
+                      ...prev,
+                      selectedCategory: "shirts",
+                    }))
+                  }
+                >
+                  Shirts
+                </button>
+              </div>
+            </div>
           </div>
-        )}
-        <div id="btn">
-          {filesToUpload.length !== 0 &&
-            dataForModel.selectedColor &&
-            dataForModel.selectedCategory &&
-            dataForModel.selectedImg && (
-              <button id="btn2" onClick={handleAvatarGenerator}>
-                Generate Avatar
-              </button>
-            )}
-        </div>
-        <div id="avatar">
-          {load ? (
-            <LoadingSpinner />
-          ) : (
-            <img
-              id="avtimgtag"
-              src={avatarData.generated_avatar}
-              alt={avatarData.message}
-              style={{ backgroundColor: dataForModel.selectedColor }}
-            />
+          {dataForModel.selectedCategory && (
+            <div className="colorAndClothes">
+              {data?.[dataForModel.selectedCategory].map(
+                (i: imagesType, idx) => (
+                  <div
+                    key={idx}
+                    className="suitImgs"
+                    onClick={() =>
+                      setDataForModel((prev) => ({
+                        ...prev,
+                        selectedImg: i.url,
+                      }))
+                    }
+                  >
+                    <img src={i.url} alt={i.filename} />
+                  </div>
+                )
+              )}
+            </div>
           )}
+          <div id="btn">
+            {filesToUpload.length !== 0 &&
+              // dataForModel.selectedColor &&
+              dataForModel.selectedCategory &&
+              dataForModel.selectedImg && (
+                <button id="btn2" onClick={handleAvatarGenerator}>
+                  Generate Avatar
+                </button>
+              )}
+          </div>
+          <div id="avatar">
+            {load ? (
+              <LoadingSpinner />
+            ) : (
+              <img
+                id="avtimgtag"
+                src={avatarData.generated_avatar}
+                alt={avatarData.message}
+                // style={{ backgroundColor: dataForModel.selectedColor }}
+              />
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default TryOn;

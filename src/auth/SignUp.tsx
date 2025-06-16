@@ -47,6 +47,17 @@ const SignUp: React.FC = () => {
       alert("Passwords does not match!!");
       return;
     }
+    const validDomains = ["@gmail.com", "@hotmail.com", "@yahoo.com"];
+    const validEmail = validDomains.some((d) => userCred.email.endsWith(d));
+    if (!validEmail) {
+      alert("Email must be from @gmail.com, @hotmail.com, or @yahoo.com");
+      return;
+    }
+    const validPass = userCred.password.length > 7;
+    if (!validPass) {
+      alert("Password must contain at least 8 characters");
+      return;
+    }
     try {
       const resp = await fetch("http://localhost:5000/register", {
         method: "POST",

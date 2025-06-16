@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./../css/NavBar.css";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,6 +12,7 @@ type NavBarProps = {
 
 const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
   const navigate = useNavigate();
+  const loc = useLocation();
   const { setSession } = useSession();
   const scrollToSection = (ref: React.RefObject<HTMLElement | null>) => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
@@ -23,16 +24,44 @@ const NavBar: React.FC<NavBarProps> = ({ homeRef, contactRef }) => {
       </div>
       <div id="navRight">
         <ul>
-          <li onClick={() => scrollToSection(homeRef)}>Home</li>
-          <li>
-            <Link
-              to="/tryon"
-              style={{ textDecoration: "none", color: "white" }}
+          {loc.pathname !== "/home" ? (
+            <li
+              onClick={() =>
+                loc.pathname === "/home"
+                  ? scrollToSection(homeRef)
+                  : navigate("/#home")
+              }
             >
-              TRY-ON
-            </Link>
-          </li>
-          <li onClick={() => scrollToSection(contactRef)}>Contact</li>
+              Home
+            </li>
+          ) : (
+            <></>
+          )}
+          {loc.pathname === "/home" ? (
+            <li>
+              <Link
+                to="/tryon"
+                style={{ textDecoration: "none", color: "white" }}
+              >
+                TRY-ON
+              </Link>
+            </li>
+          ) : (
+            <></>
+          )}
+          {loc.pathname === "/home" ? (
+            <li
+              onClick={() =>
+                loc.pathname === "/home"
+                  ? scrollToSection(contactRef)
+                  : navigate("/#contact")
+              }
+            >
+              Contact
+            </li>
+          ) : (
+            <></>
+          )}
           <li
             onClick={() => {
               setSession(false);
