@@ -4,10 +4,8 @@ import { useData, type imagesType } from "../providers/useData";
 import FileInput from "./FileInput";
 import LoadingSpinner from "./LoadingSpinner";
 import NavBar from "./NavBar";
-// import avtImg from "./../../../backend/uploads/shirts/s1.png";
 export type dataForModelType = {
   selectedFilesUrl: String[];
-  // selectedColor: "red" | "blue" | "green" | "";
   selectedCategory: "shirts" | "suit" | "tshirts" | "";
   selectedImg: string | null;
 };
@@ -15,17 +13,12 @@ type avatar = {
   message: string;
   generated_avatar: string;
 };
-// type saveAvatar = {
-//   message: string;
-//   file?: string;
-// };
 const TryOn: React.FC = () => {
   const { data } = useData();
   const homeref = useRef<HTMLElement | null>(null);
   const contactRef = useRef<HTMLElement | null>(null);
   const [dataForModel, setDataForModel] = useState<dataForModelType>({
     selectedFilesUrl: [],
-    // selectedColor: "",
     selectedCategory: "",
     selectedImg: null,
   });
@@ -64,7 +57,6 @@ const TryOn: React.FC = () => {
     formData.append(
       "metadata",
       JSON.stringify({
-        // bgColor: dataForModel.selectedColor,
         wear: dataForModel.selectedImg,
       })
     );
@@ -74,8 +66,6 @@ const TryOn: React.FC = () => {
         body: formData,
       });
       if (!resp.ok) throw new Error("Upload failed");
-      // const res = await resp.json();
-      // console.log("Server Response: ", res);
     } catch (err) {
       console.error("Error msg: ", err);
     }
@@ -88,35 +78,15 @@ const TryOn: React.FC = () => {
         body: JSON.stringify({ ...dataForModel, selectedFilesUrl: url }),
       });
       const res: avatar = await resp.json();
-      // console.log(res);
       if (resp.ok) {
         setAvatarData(res);
         localStorage.setItem("generated_avatar", res.generated_avatar);
         setLoad(false);
-        // console.log(res.message);
       }
     } catch (err) {
       console.log(`Error msg: ${err}`);
     }
   };
-
-  // const saveAvatar = async () => {
-  //   try {
-  //     const resp = await fetch("http://localhost:5000/save-avatar", {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({ avatar_url: avatarData.generated_avatar }),
-  //     });
-  //     if (resp.ok) {
-  //       const res = resp.json();
-  //     }
-  //   } catch (error) {
-  //     console.log(`Error from save-avatar route: ${error}`);
-  //   }
-  // };
-
   useEffect(() => {
     const arr: File[] = files.filter((i) => i !== null);
     setFilesToUpload(arr);
@@ -131,18 +101,6 @@ const TryOn: React.FC = () => {
       });
     }
   }, []);
-
-  // console.log(dataForModel);
-  // useEffect(() => {
-  //   const fetchAvatar = async () => {
-  //     const resp = await fetch("url");
-  //     const res = await resp.json();
-  //     setAvatarData(res);
-  //     setLoad(false);
-  //   };
-  //   fetchAvatar();
-  // }, []);
-
   return (
     <>
       <NavBar homeRef={homeref} contactRef={contactRef} />
@@ -159,51 +117,6 @@ const TryOn: React.FC = () => {
           </div>
 
           <div id="colorAndClothesCont">
-            {/* <div className="flex-col">
-              <div className="subHeadings">
-                <p>Choose background Color</p>
-              </div>
-              <div className="colorAndClothes">
-                <button
-                  className="eachColor"
-                  onClick={() => {
-                    setDataForModel((prev) => ({
-                      ...prev,
-                      selectedColor: "red",
-                    }));
-                  }}
-                >
-                  <div id="red"></div>
-                  <p>Red</p>
-                </button>
-
-                <button
-                  className="eachColor"
-                  onClick={() => {
-                    setDataForModel((prev) => ({
-                      ...prev,
-                      selectedColor: "blue",
-                    }));
-                  }}
-                >
-                  <div id="blue"></div>
-                  <p>Blue</p>
-                </button>
-
-                <button
-                  className="eachColor"
-                  onClick={() => {
-                    setDataForModel((prev) => ({
-                      ...prev,
-                      selectedColor: "green",
-                    }));
-                  }}
-                >
-                  <div id="green"></div>
-                  <p>Green</p>
-                </button>
-              </div>
-            </div> */}
             <div className="flex-col">
               <div className="subHeadings">
                 <p>Choose outfit category</p>
@@ -267,7 +180,6 @@ const TryOn: React.FC = () => {
           )}
           <div id="btn">
             {filesToUpload.length !== 0 &&
-              // dataForModel.selectedColor &&
               dataForModel.selectedCategory &&
               dataForModel.selectedImg && (
                 <button id="btn2" onClick={handleAvatarGenerator}>
@@ -283,7 +195,6 @@ const TryOn: React.FC = () => {
                 id="avtimgtag"
                 src={avatarData.generated_avatar}
                 alt={avatarData.message}
-                // style={{ backgroundColor: dataForModel.selectedColor }}
               />
             )}
           </div>
